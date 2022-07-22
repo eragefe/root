@@ -163,7 +163,7 @@ def reboot():
 
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
-    os.system('bash /root/update')
+    os.system('bash -c "sleep 1; updateroot"')
     return redirect('/')
 
 @app.route('/poweroff', methods = ['GET', 'POST'])
