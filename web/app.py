@@ -106,8 +106,10 @@ def input():
 @app.route('/test', methods = ['GET', 'POST'])
 def test():
     test = request.form["test"]
-    if test == "sound":
-        os.system('bash /root/test')
+    if test == "channel":
+        os.system('bash /root/channel')
+    if test == "phase":
+        os.system('bash /root/phase')
     if test == "net":
         os.system('bash /root/net')
     with open("/root/filter", "r") as f:
