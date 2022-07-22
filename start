@@ -1,0 +1,7 @@
+#!/bin/bash
+
+bash /root/led3 &
+
+sleep 3
+ip link set dev p2p0 up
+ip addr add 10.10.10.1/24 dev p2p0
