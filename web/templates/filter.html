@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div id="indexContent">
+	<p align="center"><a href="/"><img src="/static/gdis.png"></a></p>
+        <p align="center"><label>&nbsp;</label></p>
+
+        <table align="center"><tr><td>
+        <form action="/filter" method="post" >
+           <select class="select" name="filter" onChange="this.form.submit();">
+                <option value="" disabled selected >Filter {{ filter }}</option>
+                <option value="nos">NOS</option>
+                <option value="slow">Slow</option>
+                <option value="fast">Fast</option>
+                <option value="min">Min-phase</option>
+            </select>
+        </form>
+        </td></tr></table>
+    </form>
+     <p align="center"><label>&nbsp;</label></p>
+     <p align="center"><label>&nbsp;</label></p>
+     <p align="center"><a href="{{ url_for('update') }}"><button class="button" style="height:40px;width:150px">Update Root</button></a></p>
+  </div>
+{% endblock %}

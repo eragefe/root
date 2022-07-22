@@ -144,15 +144,26 @@ def filter():
          vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
-    return redirect('/')
+    return redirect('/filterselect')
 
 @app.route('/power')
 def power():
     return render_template('power.html')
 
+@app.route('/filterselect')
+def filterselect():
+    with open("/root/filter", "r") as f:
+         filter = f.read()
+    return render_template('filter.html', filter=filter)
+
 @app.route('/reboot', methods = ['GET', 'POST'])
 def reboot():
     os.system('bash -c "sleep 1; reboot"&')
+    return redirect('/')
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    os.system('bash /root/update')
     return redirect('/')
 
 @app.route('/poweroff', methods = ['GET', 'POST'])
