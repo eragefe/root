@@ -19,11 +19,9 @@ function makerequest() {
         }
     });
 }
-
   window.onload = function(){
   makerequest();
 }
-
 </script>
 
 <div id="indexContent">
@@ -43,7 +41,7 @@ function makerequest() {
         </td><td>
         <form action="/test" method="post" >
            <select class="select" name="test" onChange="this.form.submit();">
-                <option value="" disabled selected >Sound Check</option>
+                <option value="" disabled selected >DAC Tools</option>
                 <option value="net">Network Test</option>
                 <option value="channel">Channel Check</option>
                 <option value="phase">Phase Check</option>
@@ -65,7 +63,8 @@ function makerequest() {
          &nbsp; <a href="{{ url_for('play') }}"><button class="button" style="height:50px;width:50px">></button></a>
          &nbsp; <a href="{{ url_for('stop') }}"><button class="button" style="height:50px;width:50px">&#9632;</button></a>
          &nbsp; <a href="{{ url_for('next') }}"><button class="button" style="height:50px;width:50px">>></button></a></p>
-
+       <p align="center"><label>&nbsp;</label></p>
+        <p align="center"><a class="manualSSIDEntry" href="{{ url_for('confirm') }}">System Update</a></p>
         <p align="center"><label>&nbsp;</label></p>
         <p align="center"><a href="{{ url_for('power') }}"><img src="/static/power.png"></img></a></p>
     </form>

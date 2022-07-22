@@ -150,6 +150,10 @@ def filter():
 def power():
     return render_template('power.html')
 
+@app.route('/confirm')
+def confirm():
+    return render_template('update.html')
+
 @app.route('/filterselect')
 def filterselect():
     with open("/root/filter", "r") as f:
@@ -163,7 +167,11 @@ def reboot():
 
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
-    os.system('bash /root/update')
+    os.system('bash -c "sleep 1; updateroot"')
+    return redirect('/')
+
+@app.route('/no', methods = ['GET', 'POST'])
+def no():
     return redirect('/')
 
 @app.route('/poweroff', methods = ['GET', 'POST'])
