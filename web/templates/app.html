@@ -63,7 +63,8 @@ function makerequest() {
          &nbsp; <a href="{{ url_for('play') }}"><button class="button" style="height:50px;width:50px">></button></a>
          &nbsp; <a href="{{ url_for('stop') }}"><button class="button" style="height:50px;width:50px">&#9632;</button></a>
          &nbsp; <a href="{{ url_for('next') }}"><button class="button" style="height:50px;width:50px">>></button></a></p>
-
+       <p align="center"><label>&nbsp;</label></p>
+        <p align="center"><a class="manualSSIDEntry" href="{{ url_for('update') }}">System Update</a></p>
         <p align="center"><label>&nbsp;</label></p>
         <p align="center"><a href="{{ url_for('power') }}"><img src="/static/power.png"></img></a></p>
     </form>
