@@ -15,7 +15,7 @@ def index():
          vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
-    return render_template('app.html', vol=vol, input=input, filter=filter)
+    return render_template('app2.html', vol=vol, input=input, filter=filter)
 
 @app.route('/wifi')
 def wifi():
@@ -243,4 +243,4 @@ def create_wpa_supplicant(ssid, wifi_key):
         os.system('nmcli con add ifname wlan0 type wifi ssid ' + ssid + ' wifi-sec.key-mgmt wpa-psk wifi-sec.psk ' + wifi_key + ' ')
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 80)
+    app.run(host = '0.0.0.0', port = 5812)
