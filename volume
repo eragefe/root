@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if ls /usr/sbin |grep updateroot >/dev/nul 2>&1
+then
+   echo "File existing"
+else
+   cp /root/updateroot /usr/sbin
+   chmod +x /usr/sbin/updateroot
+fi
+
 while :
 do
    if [ "mpc volume | tr -dc '0-9'" != "cat /root/vol" ]; then
