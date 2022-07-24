@@ -1,0 +1,11 @@
+[Unit]
+Description=Update volume
+After=multi-user.target
+ 
+[Service]
+Type=simple
+ExecStart=bash /root/volume
+Restart=on-abort
+ 
+[Install]
+WantedBy=multi-user.target
