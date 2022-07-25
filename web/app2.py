@@ -112,6 +112,8 @@ def test():
         os.system('bash /root/phase')
     if test == "net":
         os.system('bash /root/net')
+    if test == "sysupdate":
+        return redirect('/confirm')
     with open("/root/filter", "r") as f:
          filter = f.read()
     with open("/root/vol", "r") as f:

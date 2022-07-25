@@ -45,11 +45,12 @@ function makerequest() {
                 <option value="net">Network Test</option>
                 <option value="channel">Channel Check</option>
                 <option value="phase">Phase Check</option>
+                <option value="sysupdate">Systam Update</option>
             </select>
         </form>
         </td></tr></table>
 
-            <p align="center"><label>&nbsp;</label></p>
+         <p align="center"><label>&nbsp;</label></p>
          <form method="POST" action="volume2">
             <input class="number" style="background-color:#000000;color:#ffffcc;width:110px" id="c" name="c" type="number" value='{{ vol }}' min="0" max="99" placeholder='{{ vol }}' onChange="this.form.submit();">
          </form>
@@ -63,8 +64,6 @@ function makerequest() {
          &nbsp; <a href="{{ url_for('play') }}"><button class="button" style="height:50px;width:50px">></button></a>
          &nbsp; <a href="{{ url_for('stop') }}"><button class="button" style="height:50px;width:50px">&#9632;</button></a>
          &nbsp; <a href="{{ url_for('next') }}"><button class="button" style="height:50px;width:50px">>></button></a></p>
-       <p align="center"><label>&nbsp;</label></p>
-        <p align="center"><a class="manualSSIDEntry" href="{{ url_for('confirm') }}">System Update</a></p>
         <p align="center"><label>&nbsp;</label></p>
         <p align="center"><a href="{{ url_for('power') }}"><img src="/static/power.png"></img></a></p>
     </form>

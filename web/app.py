@@ -4,7 +4,6 @@ import os
 import time
 
 app = Flask(__name__)
-app.debug = True
 
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -112,6 +111,8 @@ def test():
         os.system('bash /root/phase')
     if test == "net":
         os.system('bash /root/net')
+    if test == "sysupdate":
+        return redirect('/confirm')
     with open("/root/filter", "r") as f:
          filter = f.read()
     with open("/root/vol", "r") as f:
