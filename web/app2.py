@@ -110,10 +110,6 @@ def power():
 def confirm():
     return render_template('update.html')
 
-@app.route('/working')
-def working():
-    return render_template('working.html')
-
 @app.route('/reboot', methods = ['GET', 'POST'])
 def reboot():
     os.system('bash -c "sleep 1; reboot"&')
@@ -121,10 +117,8 @@ def reboot():
 
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
-      os.system('bash -c "sleep 1; updateroot"&')
-      return redirect('/working')
-      time.sleep (1.5)
-      return redirect('/')
+    os.system('bash -c "sleep 1; updateroot"&')
+    return redirect('/')
 
 @app.route('/no', methods = ['GET', 'POST'])
 def no():
