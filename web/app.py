@@ -77,16 +77,12 @@ def test():
     if test == "net":
         os.system('bash /root/net')
     if test == "sysupdate":
-        return redirect('/confirm')
+        return render_template('update.html')
     return redirect('/')
 
 @app.route('/power')
 def power():
     return render_template('power.html')
-
-@app.route('/confirm')
-def confirm():
-    return render_template('update.html')
 
 @app.route('/reboot', methods = ['GET', 'POST'])
 def reboot():
