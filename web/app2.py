@@ -118,7 +118,7 @@ def reboot():
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
     os.system('bash -c "sleep 1; updateroot"&')
-    return redirect('/')
+    return render_template('working.html'), {"Refresh": "4; url='/'"}
 
 @app.route('/no', methods = ['GET', 'POST'])
 def no():
