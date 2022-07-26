@@ -33,12 +33,6 @@ def save_credentials():
     wifi_key = request.form['wifi_key']
     create_wpa_supplicant(ssid, wifi_key)
     os.system('bash /tmp/wifi.tmp')
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route("/volume2", methods = ['GET', 'POST'])
@@ -47,12 +41,8 @@ def volume2():
         a = request.form["c"]
         create_file(a)
         os.system('mpc volume $(cat /root/vol)> /dev/null 2>&1')
-        with open("/root/filter", "r") as f:
-             filter = f.read()
         with open("/root/vol", "r") as f:
              vol = f.read()
-        with open("/root/input", "r") as f:
-             input = f.read()
         return redirect('/')
     else:
         with open("/root/vol", "r") as f:
@@ -65,12 +55,8 @@ def volume():
         a = request.form["a"]
         create_file(a)
         os.system('mpc volume $(cat /root/vol)> /dev/null 2>&1')
-        with open("/root/filter", "r") as f:
-                filter = f.read()
         with open("/root/vol", "r") as f:
                 vol = f.read()
-        with open("/root/input", "r") as f:
-                input = f.read()
         return redirect('/')
     else:
         with open("/root/vol", "r") as f:
@@ -95,10 +81,6 @@ def input():
     if input == "auto":
          os.system('systemctl start led')
          os.system('echo "(auto select)" > /root/input')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
     return redirect('/')
@@ -114,12 +96,6 @@ def test():
         os.system('bash /root/net')
     if test == "sysupdate":
         return redirect('/confirm')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/filter', methods = ['GET', 'POST'])
@@ -142,10 +118,6 @@ def filter():
         os.system('echo "(Minimal Phase)" > /root/filter')
     with open("/root/filter", "r") as f:
          filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/power')
@@ -178,45 +150,21 @@ def poweroff():
 @app.route('/prev', methods = ['GET', 'POST'])
 def prev():
     os.system('mpc prev')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/play', methods = ['GET', 'POST'])
 def play():
     os.system('mpc toggle')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/stop', methods = ['GET', 'POST'])
 def stop():
     os.system('mpc stop')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/next', methods = ['GET', 'POST'])
 def next():
     os.system('mpc next')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 ######## FUNCTIONS ##########
