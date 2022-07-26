@@ -4,6 +4,7 @@ import os
 import time
 
 app = Flask(__name__)
+app.debug = True
 
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -14,31 +15,7 @@ def index():
          vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
-    return render_template('app.html', vol=vol, input=input, filter=filter)
-
-@app.route('/wifi')
-def wifi():
-    wifi_ap_array = scan_wifi_networks()
-
-    return render_template('wifi.html', wifi_ap_array = wifi_ap_array)
-
-@app.route('/manual_ssid_entry')
-def manual_ssid_entry():
-    return render_template('manual_ssid_entry.html')
-
-@app.route('/save_credentials', methods = ['GET', 'POST'])
-def save_credentials():
-    ssid = request.form['ssid']
-    wifi_key = request.form['wifi_key']
-    create_wpa_supplicant(ssid, wifi_key)
-    os.system('bash /tmp/wifi.tmp')
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
-    return redirect('/')
+    return render_template('app2.html', vol=vol, input=input, filter=filter)
 
 @app.route("/volume2", methods = ['GET', 'POST'])
 def volume2():
@@ -46,12 +23,8 @@ def volume2():
         a = request.form["c"]
         create_file(a)
         os.system('mpc volume $(cat /root/vol)> /dev/null 2>&1')
-        with open("/root/filter", "r") as f:
-             filter = f.read()
         with open("/root/vol", "r") as f:
              vol = f.read()
-        with open("/root/input", "r") as f:
-             input = f.read()
         return redirect('/')
     else:
         with open("/root/vol", "r") as f:
@@ -64,12 +37,8 @@ def volume():
         a = request.form["a"]
         create_file(a)
         os.system('mpc volume $(cat /root/vol)> /dev/null 2>&1')
-        with open("/root/filter", "r") as f:
-                filter = f.read()
         with open("/root/vol", "r") as f:
                 vol = f.read()
-        with open("/root/input", "r") as f:
-                input = f.read()
         return redirect('/')
     else:
         with open("/root/vol", "r") as f:
@@ -94,10 +63,6 @@ def input():
     if input == "auto":
          os.system('systemctl start led')
          os.system('echo "(auto select)" > /root/input')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
     return redirect('/')
@@ -113,12 +78,6 @@ def test():
         os.system('bash /root/net')
     if test == "sysupdate":
         return redirect('/confirm')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/filter', methods = ['GET', 'POST'])
@@ -141,10 +100,6 @@ def filter():
         os.system('echo "(Minimal Phase)" > /root/filter')
     with open("/root/filter", "r") as f:
          filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/power')
@@ -162,8 +117,8 @@ def reboot():
 
 @app.route('/update', methods = ['GET', 'POST'])
 def update():
-    os.system('bash -c "sleep 1; updateroot"')
-    return redirect('/')
+    os.system('bash -c "sleep 1; updateroot"&')
+    return render_template('working.html'), {"Refresh": "4; url='/'"}
 
 @app.route('/no', methods = ['GET', 'POST'])
 def no():
@@ -177,71 +132,22 @@ def poweroff():
 @app.route('/prev', methods = ['GET', 'POST'])
 def prev():
     os.system('mpc prev')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/play', methods = ['GET', 'POST'])
 def play():
     os.system('mpc toggle')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/stop', methods = ['GET', 'POST'])
 def stop():
     os.system('mpc stop')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
 @app.route('/next', methods = ['GET', 'POST'])
 def next():
     os.system('mpc next')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    with open("/root/vol", "r") as f:
-         vol = f.read()
-    with open("/root/input", "r") as f:
-         input = f.read()
     return redirect('/')
 
-######## FUNCTIONS ##########
-
-def create_file(a):
-
-    temp_conf_file = open('/root/vol', 'w')
-    temp_conf_file.write('' + a + '')
-    temp_conf_file.close
-
-def scan_wifi_networks():
-    iwlist_raw = subprocess.Popen(['iwlist','wlan0','scan'], stdout=subprocess.PIPE)
-    ap_list, err = iwlist_raw.communicate()
-    ap_array = []
-
-    for line in ap_list.decode('utf-8').rsplit('\n'):
-        if 'ESSID' in line:
-            ap_ssid = line[27:-1]
-            if ap_ssid != '':
-                ap_array.append(ap_ssid)
-
-    return ap_array
-
-def create_wpa_supplicant(ssid, wifi_key):
-
-        os.system('nmcli con add ifname wlan0 type wifi ssid ' + ssid + ' wifi-sec.key-mgmt wpa-psk wifi-sec.psk ' + wifi_key + ' ')
-
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 80)
+    app.run(host = '0.0.0.0', port = 5812)

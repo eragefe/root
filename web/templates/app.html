@@ -28,16 +28,18 @@ function makerequest() {
 	<p align="center"><a href="/"><img src="/static/gdis.png"></a></p>
         <p align="center"><label>&nbsp;</label></p>
 
-        <table align="center"><tr><td>
+        </td><td>
         <form action="/input" method="post">
             <select class="select" name="input" onChange="this.form.submit();">
-                <option value="" disabled selected >Input {{ input }}</option>
+                <option value="" disabled selected >Input Select &nbsp; &nbsp; {{ input }}</option>
                 <option value="S1">SPDIF-1</option>
                 <option value="S2">SPDIF-2</option>
                 <option value="i2s">STREAMER</option>
-                <option value="auto">AUTO</option>
+                <option value="auto">AUTO SELECT</option>
             </select>
         </form>
+        </td></tr></table> &nbsp;
+
         </td><td>
         <form action="/test" method="post" >
            <select class="select" name="test" onChange="this.form.submit();">
@@ -45,7 +47,7 @@ function makerequest() {
                 <option value="net">Network Test</option>
                 <option value="channel">Channel Check</option>
                 <option value="phase">Phase Check</option>
-                <option value="sysupdate">Systam Update</option>
+                <option value="sysupdate">System Update</option>
             </select>
         </form>
         </td></tr></table>
@@ -53,10 +55,9 @@ function makerequest() {
          <p align="center"><label>&nbsp;</label></p>
          <form method="POST" action="volume2">
             <input class="number" style="background-color:#000000;color:#ffffcc;width:110px" id="c" name="c" type="number" value='{{ vol }}' min="0" max="99" placeholder='{{ vol }}' onChange="this.form.submit();">
-         </form>
-         <p align="center"><label>&nbsp;</label></p>
+         </form> &nbsp;
          <form method="POST" action="volume">
-            <p align="center"><input style="width:250px" value='{{ vol }}' type="range" id="a" name="a" min="0" max="100" oninput="c.value=a.value" onChange="this.form.submit();">
+         <p align="center"><input style="width:250px" value='{{ vol }}' type="range" id="a" name="a" min="0" max="100" oninput="c.value=a.value" onChange="this.form.submit();">
          </form>
 
         <p align="center"><label>&nbsp;</label></p>
