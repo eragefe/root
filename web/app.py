@@ -15,7 +15,7 @@ def index():
          vol = f.read()
     with open("/root/input", "r") as f:
          input = f.read()
-    return render_template('app2.html', vol=vol, input=input, filter=filter)
+    return render_template('app.html', vol=vol, input=input, filter=filter)
 
 @app.route("/volume2", methods = ['GET', 'POST'])
 def volume2():
