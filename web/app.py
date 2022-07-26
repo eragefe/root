@@ -80,28 +80,6 @@ def test():
         return redirect('/confirm')
     return redirect('/')
 
-@app.route('/filter', methods = ['GET', 'POST'])
-def filter():
-    filter = request.form["filter"]
-    if filter == "nos":
-        os.system('amixer cset numid=5 1 >/dev/nul')
-        os.system('echo "(N.O.S)" > /root/filter')
-    if filter == "slow":
-        os.system('amixer cset numid=5 0 >/dev/nul')
-        os.system('amixer cset numid=4 1 >/dev/nul')
-        os.system('echo "(Slow Rolloff)" > /root/filter')
-    if filter == "fast":
-        os.system('amixer cset numid=5 0 >/dev/nul')
-        os.system('amixer cset numid=4 0 >/dev/nul')
-        os.system('echo "(Fast Rolloff)" > /root/filter')
-    if filter == "min":
-        os.system('amixer cset numid=5 0 >/dev/nul')
-        os.system('amixer cset numid=4 2 >/dev/nul')
-        os.system('echo "(Minimal Phase)" > /root/filter')
-    with open("/root/filter", "r") as f:
-         filter = f.read()
-    return redirect('/')
-
 @app.route('/power')
 def power():
     return render_template('power.html')
@@ -150,4 +128,4 @@ def next():
     return redirect('/')
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0', port = 5812)
+    app.run(host = '0.0.0.0', port = 80)
