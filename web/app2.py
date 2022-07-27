@@ -145,5 +145,10 @@ def next():
     os.system('mpc next')
     return redirect('/')
 
+def create_file(a):
+    temp_conf_file = open('/root/vol', 'w')
+    temp_conf_file.write('' + a + '')
+    temp_conf_file.close
+    
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 5812)
