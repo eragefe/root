@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ if cat /root/input  |grep "i2s" >/dev/nul 2>&1
+ then
+    amixer cset numid=3 1 >/dev/nul 2>&1
+ fi
+
+ if cat /root/input  |grep "spdif 1" >/dev/nul 2>&1
+ then
+    amixer cset numid=2 0 >/dev/nul 2>&1
+fi
+
+ if cat /root/input  |grep "spdif 2" >/dev/nul 2>&1
+ then
+    amixer cset numid=2 1 >/dev/nul 2>&1
+fi
