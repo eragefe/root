@@ -31,6 +31,11 @@ def volume2():
             vol = f.read()
             return vol
 
+def create_file(a):
+    temp_conf_file = open('/root/vol', 'w')
+    temp_conf_file.write('' + a + '')
+    temp_conf_file.close
+
 @app.route("/volume", methods = ['GET', 'POST'])
 def volume():
     if request.method == 'POST':
@@ -44,6 +49,31 @@ def volume():
         with open("/root/vol", "r") as f:
             vol = f.read()
             return vol
+
+@app.route('/filter', methods = ['GET', 'POST'])
+def filter():
+    if request.method == 'POST':
+        b = request.form["filter"]
+        if b == "nos":
+           os.system('amixer cset numid=5 1 >/dev/nul')
+           os.system('echo "(N.O.S)" > /root/filter')
+        if b == "slow":
+           os.system('amixer cset numid=5 0 >/dev/nul')
+           os.system('amixer cset numid=4 1 >/dev/nul')
+           os.system('echo "(Slow Rolloff)" > /root/filter')
+        if b == "fast":
+           os.system('amixer cset numid=5 0 >/dev/nul')
+           os.system('amixer cset numid=4 0 >/dev/nul')
+           os.system('echo "(Fast Rolloff)" > /root/filter')
+        if b == "min":
+           os.system('amixer cset numid=5 0 >/dev/nul')
+           os.system('amixer cset numid=4 2 >/dev/nul')
+           os.system('echo "(Minimal Phase)" > /root/filter')
+        return redirect('/')
+    else:
+        with open("/root/filter", "r") as f:
+             filter = f.read()
+             return filter
 
 @app.route('/input', methods = ['GET', 'POST'])
 def input():
@@ -122,11 +152,6 @@ def stop():
 def next():
     os.system('mpc next')
     return redirect('/')
-
-def create_file(a):
-    temp_conf_file = open('/root/vol', 'w')
-    temp_conf_file.write('' + a + '')
-    temp_conf_file.close
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 80)
