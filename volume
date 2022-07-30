@@ -1,17 +1,31 @@
 #!/bin/bash
 
-if ls /usr/sbin |grep updateroot >/dev/nul 2>&1
-then
-   echo "File existing"
-else
-   cp /root/updateroot /usr/sbin
-   chmod +x /usr/sbin/updateroot
-fi
-
 while :
 do
-   if [ "mpc volume | tr -dc '0-9'" != "cat /root/vol" ]; then
-      sleep 0.2
-      mpc volume | tr -dc '0-9' >/root/vol
-   fi
+
+if amixer cget numid=4 |grep -v "values=1," |grep values=1 >/dev/nul 2>&1 && amixer cget numid=5 |grep values=0 >/dev/nul 2>&1
+then
+   echo "(Slow Rolloff)" > /root/filter
+fi
+
+if amixer cget numid=4 |grep values=0 >/dev/nul 2>&1 && amixer cget numid=5 |grep values=0 >/dev/nul 2>&1
+then
+   echo "(Fast Rolloff)" > /root/filter
+fi
+
+if amixer cget numid=4 |grep values=2 >/dev/nul 2>&1 && amixer cget numid=5 |grep values=0 >/dev/nul 2>&1
+then
+   echo "(Minimal Phase)" > /root/filter
+fi
+
+if amixer cget numid=5 |grep -v "values=1," |grep values=1 >/dev/nul 2>&1
+then
+   echo "(N.O.S)" > /root/filter
+fi
+
+if [ "mpc volume | tr -dc '0-9'" != "cat /root/vol" ]; then
+   sleep 0.2
+   mpc volume | tr -dc '0-9' >/root/vol
+fi
+
 done
