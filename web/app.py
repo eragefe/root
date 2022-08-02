@@ -112,6 +112,7 @@ def test():
         os.system('systemctl restart volume')
     if test == "net":
         os.system('bash /root/net')
+        os.system('systemctl restart volume')
     if test == "sysupdate":
         return render_template('update.html')
     return redirect('/')
