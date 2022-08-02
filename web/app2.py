@@ -122,6 +122,9 @@ def power():
 
 @app.route('/reboot', methods = ['GET', 'POST'])
 def reboot():
+    os.system('amixer cset numid=3 1 >/dev/nul')
+    os.system('aplay -D plughw:0 /root/reboot.wav')
+    os.system('systemctl restart volume')
     os.system('bash -c "sleep 1; reboot"&')
     return redirect('/')
 
