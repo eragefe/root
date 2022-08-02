@@ -57,18 +57,22 @@ def filter():
         if b == "nos":
            os.system('amixer cset numid=5 1 >/dev/nul')
            os.system('echo "(N.O.S)" > /root/filter')
+           os.system('systemctl restart volume')
         if b == "slow":
            os.system('amixer cset numid=5 0 >/dev/nul')
            os.system('amixer cset numid=4 1 >/dev/nul')
            os.system('echo "(Slow Rolloff)" > /root/filter')
+           os.system('systemctl restart volume')
         if b == "fast":
            os.system('amixer cset numid=5 0 >/dev/nul')
            os.system('amixer cset numid=4 0 >/dev/nul')
            os.system('echo "(Fast Rolloff)" > /root/filter')
+           os.system('systemctl restart volume')
         if b == "min":
            os.system('amixer cset numid=5 0 >/dev/nul')
            os.system('amixer cset numid=4 2 >/dev/nul')
            os.system('echo "(Minimal Phase)" > /root/filter')
+           os.system('systemctl restart volume')
         return redirect('/')
     else:
         with open("/root/filter", "r") as f:
@@ -99,20 +103,7 @@ def input():
          input = f.read()
     return redirect('/')
 
-
-
-@app.route('/update', methods = ['GET', 'POST'])
-def update():
-    os.system('bash -c "sleep 1; updateroot"&')
-    return render_template('working.html'), {"Refresh": "4; url='/'"}
-
-@app.route('/no', methods = ['GET', 'POST'])
-def no():
-    return redirect('/')
-
-@app.route('/poweroff', methods = ['GET', 'POST'])
-def poweroff():
-    os.system('bash -c "sleep 1; poweroff"&')@app.route('/test', methods = ['GET', 'POST'])
+@app.route('/test', methods = ['GET', 'POST'])
 def test():
     test = request.form["test"]
     if test == "channel":
@@ -141,6 +132,19 @@ def reboot():
     os.system('systemctl restart volume')
     os.system('bash -c "sleep 1; reboot"&')
     return redirect('/')
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    os.system('bash -c "sleep 1; updateroot"&')
+    return render_template('working.html'), {"Refresh": "4; url='/'"}
+
+@app.route('/no', methods = ['GET', 'POST'])
+def no():
+    return redirect('/')
+
+@app.route('/poweroff', methods = ['GET', 'POST'])
+def poweroff():
+    os.system('bash -c "sleep 1; poweroff"&')
     return redirect('/')
 
 @app.route('/prev', methods = ['GET', 'POST'])
