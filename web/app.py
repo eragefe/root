@@ -99,7 +99,20 @@ def input():
          input = f.read()
     return redirect('/')
 
-@app.route('/test', methods = ['GET', 'POST'])
+
+
+@app.route('/update', methods = ['GET', 'POST'])
+def update():
+    os.system('bash -c "sleep 1; updateroot"&')
+    return render_template('working.html'), {"Refresh": "4; url='/'"}
+
+@app.route('/no', methods = ['GET', 'POST'])
+def no():
+    return redirect('/')
+
+@app.route('/poweroff', methods = ['GET', 'POST'])
+def poweroff():
+    os.system('bash -c "sleep 1; poweroff"&')@app.route('/test', methods = ['GET', 'POST'])
 def test():
     test = request.form["test"]
     if test == "channel":
@@ -128,19 +141,6 @@ def reboot():
     os.system('systemctl restart volume')
     os.system('bash -c "sleep 1; reboot"&')
     return redirect('/')
-
-@app.route('/update', methods = ['GET', 'POST'])
-def update():
-    os.system('bash -c "sleep 1; updateroot"&')
-    return render_template('working.html'), {"Refresh": "4; url='/'"}
-
-@app.route('/no', methods = ['GET', 'POST'])
-def no():
-    return redirect('/')
-
-@app.route('/poweroff', methods = ['GET', 'POST'])
-def poweroff():
-    os.system('bash -c "sleep 1; poweroff"&')
     return redirect('/')
 
 @app.route('/prev', methods = ['GET', 'POST'])
