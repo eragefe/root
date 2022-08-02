@@ -80,10 +80,12 @@ def input():
     input = request.form["input"]
     if input == "S1":
          os.system('systemctl stop led')
+         os.system('amixer cset numid=3 0 >/dev/nul')  
          os.system('amixer cset numid=2 0 >/dev/nul')
          os.system('echo "(spdif 1)" > /root/input')
     if input == "S2":
          os.system('systemctl stop led')
+         os.system('amixer cset numid=3 0 >/dev/nul')
          os.system('amixer cset numid=2 1 >/dev/nul')
          os.system('echo "(spdif 2)" > /root/input')
     if input == "i2s":
