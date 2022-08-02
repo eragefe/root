@@ -103,9 +103,13 @@ def input():
 def test():
     test = request.form["test"]
     if test == "channel":
-        os.system('bash /root/channel')
+        os.system('amixer cset numid=3 1 >/dev/nul')
+        os.system('aplay -D plughw:0 /root/channel.wav')
+        os.system('systemctl restart volume')
     if test == "phase":
-        os.system('bash /root/phase')
+        os.system('amixer cset numid=3 1 >/dev/nul')
+        os.system('aplay -D plughw:0 /root/phase.wav')
+        os.system('systemctl restart volume')
     if test == "net":
         os.system('bash /root/net')
     if test == "sysupdate":
